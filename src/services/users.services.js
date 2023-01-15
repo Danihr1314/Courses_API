@@ -18,7 +18,7 @@ class UserServices {
 
   static async getCourses(id) {
     try {
-      const result = Users.findOne({
+      const result = await Users.findOne({
         where: { id },
         attributes: ["id", "firstName", "lastName", "email"],
         include: {
@@ -31,6 +31,27 @@ class UserServices {
             attributes: ["title"],
           },
         },
+      });
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async create(user) {
+    try {
+      const result = await Users.create(user);
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async update(id, field) {
+    try {
+      const result = await Users.update(field, {
+        where: { id },
+        attributes: ["firstName", "lastName", "password"],
       });
       return result;
     } catch (error) {
